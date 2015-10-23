@@ -2,7 +2,7 @@
 //
  /// Project Base Code: Balls and Boxes on a Curved Platform
 
-// $Id:$
+// $Id:$ 
 
 /// Purpose
 //
@@ -1363,8 +1363,8 @@ World::cb_keyboard()
   case '0': setup_debug(); break;
   case '1': setup_brick_wall(-5); break;
   case '!': setup_brick_wall(20); break;
-  case '2': setup_tower(8,40,false); break;
-  case '3': setup_tower(20,10,true); break;
+  case '2': setup_tower(2,10); break;
+  case '3': setup_tower(20,10); break;
   case '4': setup_staircase(); break;
   case '5': setup_house_of_cards(); break;
   case '|': opt_platform_curved = !opt_platform_curved;
