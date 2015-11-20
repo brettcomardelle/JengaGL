@@ -62,6 +62,10 @@ public:
   Ball* ball_first();           // Oldest surviving ball.
   Phys* phys_last();            // Youngest surviving phys.
 
+  // Edit
+  Ball* ball_user;
+  pCoor user_pos_init;
+
   // Options controlling ball shower.
   //
   bool opt_spray_on;
@@ -155,7 +159,7 @@ public:
 
   pCoor light_location;
   float opt_light_intensity;
-  enum { MI_Eye, MI_Light, MI_Ball, MI_Ball_V, MI_Drip, MI_Wheel, MI_COUNT } 
+  enum { MI_Eye, MI_Light, MI_Ball, MI_Ball_V, MI_Drip, MI_Wheel, MI_COUNT, MI_Ball_User } 
     opt_move_item;
   bool opt_pause;
   bool opt_single_frame;      // Simulate for one frame.

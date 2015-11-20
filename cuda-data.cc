@@ -176,6 +176,10 @@ World::cuda_constants_update()
   // The macros below copy values to CUDA device variables with
   // the same name.
   //
+
+  // Edit
+  //TO_DEV(opt_move_item);
+
   TO_DEV(gravity_accel_dt);
   TO_DEV(opt_bounce_loss);
   TO_DEV(opt_bounce_loss_box);

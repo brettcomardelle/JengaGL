@@ -1,15 +1,17 @@
 phys-obj-ball.o phys-obj-ball.d : phys-obj-ball.cc \
+    /usr/include/stdc-predef.h \
     phys-obj-ball.h \
     boxes.h \
     /usr/include/GL/gl.h \
     ../../include/GL/glext.h \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/include/stddef.h \
+    /usr/lib/gcc/x86_64-redhat-linux/4.8.3/include/stddef.h \
     /usr/include/inttypes.h \
     /usr/include/features.h \
     /usr/include/sys/cdefs.h \
     /usr/include/bits/wordsize.h \
     /usr/include/gnu/stubs.h \
     /usr/include/gnu/stubs-64.h \
+    /usr/lib/gcc/x86_64-redhat-linux/4.8.3/include/stdint.h \
     /usr/include/stdint.h \
     /usr/include/bits/wchar.h \
     /usr/include/GL/glx.h \
@@ -21,6 +23,7 @@ phys-obj-ball.o phys-obj-ball.d : phys-obj-ball.cc \
     /usr/include/endian.h \
     /usr/include/bits/endian.h \
     /usr/include/bits/byteswap.h \
+    /usr/include/bits/byteswap-16.h \
     /usr/include/sys/select.h \
     /usr/include/bits/select.h \
     /usr/include/bits/sigset.h \
@@ -42,13 +45,14 @@ phys-obj-ball.o phys-obj-ball.d : phys-obj-ball.cc \
     /usr/include/bits/waitstatus.h \
     /usr/include/xlocale.h \
     /usr/include/alloca.h \
+    /usr/include/bits/stdlib-float.h \
     /usr/include/GL/freeglut_ext.h \
+    /usr/lib/gcc/x86_64-redhat-linux/4.8.3/include/stdarg.h \
     ../../include/gp/util.h \
     /usr/include/stdio.h \
     /usr/include/libio.h \
     /usr/include/_G_config.h \
     /usr/include/wchar.h \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/include/stdarg.h \
     /usr/include/bits/stdio_lim.h \
     /usr/include/bits/sys_errlist.h \
     /usr/include/bits/stdio.h \
@@ -65,7 +69,9 @@ phys-obj-ball.o phys-obj-ball.d : phys-obj-ball.cc \
     /usr/include/ImageMagick/Magick++/Include.h \
     /usr/include/ImageMagick/magick/magick-config.h \
     /usr/include/ImageMagick/magick/magick-config-64.h \
+    /usr/include/bits/timex.h \
     /usr/include/ImageMagick/magick/MagickCore.h \
+    /usr/include/ImageMagick/magick/method-attribute.h \
     /usr/include/ImageMagick/magick/magick-type.h \
     /usr/include/ImageMagick/magick/accelerate.h \
     /usr/include/ImageMagick/magick/morphology.h \
@@ -100,6 +106,7 @@ phys-obj-ball.o phys-obj-ball.d : phys-obj-ball.cc \
     /usr/include/ImageMagick/magick/artifact.h \
     /usr/include/ImageMagick/magick/attribute.h \
     /usr/include/ImageMagick/magick/cache.h \
+    /usr/include/ImageMagick/magick/channel.h \
     /usr/include/ImageMagick/magick/cipher.h \
     /usr/include/ImageMagick/magick/client.h \
     /usr/include/ImageMagick/magick/coder.h \
@@ -150,6 +157,7 @@ phys-obj-ball.o phys-obj-ball.d : phys-obj-ball.cc \
     /usr/include/ImageMagick/magick/xml-tree.h \
     /usr/include/ImageMagick/magick/xwindow.h \
     /usr/include/ImageMagick/wand/MagickWand.h \
+    /usr/include/ImageMagick/wand/method-attribute.h \
     /usr/include/ImageMagick/wand/animate.h \
     /usr/include/ImageMagick/wand/compare.h \
     /usr/include/ImageMagick/wand/composite.h \
@@ -170,110 +178,107 @@ phys-obj-ball.o phys-obj-ball.d : phys-obj-ball.cc \
     /usr/include/ImageMagick/wand/stream.h \
     /usr/include/ImageMagick/wand/wand-view.h \
     /usr/include/ImageMagick/Magick++/Image.h \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/string \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/x86_64-redhat-linux/bits/c++config.h \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/x86_64-redhat-linux/bits/os_defines.h \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/x86_64-redhat-linux/bits/cpu_defines.h \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stringfwd.h \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/char_traits.h \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_algobase.h \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/cstddef \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/functexcept.h \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/exception_defines.h \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/cpp_type_traits.h \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/ext/type_traits.h \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/ext/numeric_traits.h \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_pair.h \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/move.h \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/concept_check.h \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_iterator_base_types.h \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_iterator_base_funcs.h \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_iterator.h \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/debug/debug.h \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/postypes.h \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/cwchar \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/allocator.h \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/x86_64-redhat-linux/bits/c++allocator.h \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/ext/new_allocator.h \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/new \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/exception \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/localefwd.h \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/x86_64-redhat-linux/bits/c++locale.h \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/clocale \
+    /usr/include/c++/4.8.2/string \
+    /usr/include/c++/4.8.2/x86_64-redhat-linux/bits/c++config.h \
+    /usr/include/c++/4.8.2/x86_64-redhat-linux/bits/os_defines.h \
+    /usr/include/c++/4.8.2/x86_64-redhat-linux/bits/cpu_defines.h \
+    /usr/include/c++/4.8.2/bits/stringfwd.h \
+    /usr/include/c++/4.8.2/bits/memoryfwd.h \
+    /usr/include/c++/4.8.2/bits/char_traits.h \
+    /usr/include/c++/4.8.2/bits/stl_algobase.h \
+    /usr/include/c++/4.8.2/bits/functexcept.h \
+    /usr/include/c++/4.8.2/bits/exception_defines.h \
+    /usr/include/c++/4.8.2/bits/cpp_type_traits.h \
+    /usr/include/c++/4.8.2/ext/type_traits.h \
+    /usr/include/c++/4.8.2/ext/numeric_traits.h \
+    /usr/include/c++/4.8.2/bits/stl_pair.h \
+    /usr/include/c++/4.8.2/bits/move.h \
+    /usr/include/c++/4.8.2/bits/concept_check.h \
+    /usr/include/c++/4.8.2/bits/stl_iterator_base_types.h \
+    /usr/include/c++/4.8.2/bits/stl_iterator_base_funcs.h \
+    /usr/include/c++/4.8.2/debug/debug.h \
+    /usr/include/c++/4.8.2/bits/stl_iterator.h \
+    /usr/include/c++/4.8.2/bits/postypes.h \
+    /usr/include/c++/4.8.2/cwchar \
+    /usr/include/c++/4.8.2/bits/allocator.h \
+    /usr/include/c++/4.8.2/x86_64-redhat-linux/bits/c++allocator.h \
+    /usr/include/c++/4.8.2/ext/new_allocator.h \
+    /usr/include/c++/4.8.2/new \
+    /usr/include/c++/4.8.2/exception \
+    /usr/include/c++/4.8.2/bits/atomic_lockfree_defines.h \
+    /usr/include/c++/4.8.2/bits/localefwd.h \
+    /usr/include/c++/4.8.2/x86_64-redhat-linux/bits/c++locale.h \
+    /usr/include/c++/4.8.2/clocale \
     /usr/include/locale.h \
     /usr/include/bits/locale.h \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/iosfwd \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/cctype \
+    /usr/include/c++/4.8.2/iosfwd \
+    /usr/include/c++/4.8.2/cctype \
     /usr/include/ctype.h \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/ostream_insert.h \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/cxxabi-forced.h \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_function.h \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/backward/binders.h \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/basic_string.h \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/ext/atomicity.h \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/x86_64-redhat-linux/bits/gthr.h \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/x86_64-redhat-linux/bits/gthr-default.h \
+    /usr/include/c++/4.8.2/bits/ostream_insert.h \
+    /usr/include/c++/4.8.2/bits/cxxabi_forced.h \
+    /usr/include/c++/4.8.2/bits/stl_function.h \
+    /usr/include/c++/4.8.2/backward/binders.h \
+    /usr/include/c++/4.8.2/bits/range_access.h \
+    /usr/include/c++/4.8.2/bits/basic_string.h \
+    /usr/include/c++/4.8.2/ext/atomicity.h \
+    /usr/include/c++/4.8.2/x86_64-redhat-linux/bits/gthr.h \
+    /usr/include/c++/4.8.2/x86_64-redhat-linux/bits/gthr-default.h \
     /usr/include/pthread.h \
     /usr/include/sched.h \
     /usr/include/bits/sched.h \
     /usr/include/bits/setjmp.h \
-    /usr/include/unistd.h \
-    /usr/include/bits/posix_opt.h \
-    /usr/include/bits/environments.h \
-    /usr/include/bits/confname.h \
-    /usr/include/getopt.h \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/x86_64-redhat-linux/bits/atomic_word.h \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/initializer_list \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/basic_string.tcc \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/list \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_list.h \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/list.tcc \
+    /usr/include/c++/4.8.2/x86_64-redhat-linux/bits/atomic_word.h \
+    /usr/include/c++/4.8.2/bits/basic_string.tcc \
+    /usr/include/c++/4.8.2/list \
+    /usr/include/c++/4.8.2/bits/stl_list.h \
+    /usr/include/c++/4.8.2/bits/list.tcc \
     /usr/include/ImageMagick/Magick++/Blob.h \
     /usr/include/ImageMagick/Magick++/Color.h \
     /usr/include/ImageMagick/Magick++/Drawable.h \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/functional \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/utility \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_relops.h \
+    /usr/include/c++/4.8.2/functional \
+    /usr/include/c++/4.8.2/utility \
+    /usr/include/c++/4.8.2/bits/stl_relops.h \
     /usr/include/ImageMagick/Magick++/Geometry.h \
     /usr/include/ImageMagick/Magick++/Exception.h \
     /usr/include/ImageMagick/Magick++/TypeMetric.h \
     /usr/include/ImageMagick/Magick++/Pixels.h \
     /usr/include/ImageMagick/Magick++/STL.h \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/algorithm \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_algo.h \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/cstdlib \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/algorithmfwd.h \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_heap.h \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_tempbuf.h \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_construct.h \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_uninitialized.h \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/iterator \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/ostream \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/ios \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/ios_base.h \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/locale_classes.h \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/locale_classes.tcc \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/streambuf \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/streambuf.tcc \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/basic_ios.h \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/locale_facets.h \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/cwctype \
+    /usr/include/c++/4.8.2/algorithm \
+    /usr/include/c++/4.8.2/bits/stl_algo.h \
+    /usr/include/c++/4.8.2/cstdlib \
+    /usr/include/c++/4.8.2/bits/algorithmfwd.h \
+    /usr/include/c++/4.8.2/bits/stl_heap.h \
+    /usr/include/c++/4.8.2/bits/stl_tempbuf.h \
+    /usr/include/c++/4.8.2/bits/stl_construct.h \
+    /usr/include/c++/4.8.2/ext/alloc_traits.h \
+    /usr/include/c++/4.8.2/iterator \
+    /usr/include/c++/4.8.2/ostream \
+    /usr/include/c++/4.8.2/ios \
+    /usr/include/c++/4.8.2/bits/ios_base.h \
+    /usr/include/c++/4.8.2/bits/locale_classes.h \
+    /usr/include/c++/4.8.2/bits/locale_classes.tcc \
+    /usr/include/c++/4.8.2/streambuf \
+    /usr/include/c++/4.8.2/bits/streambuf.tcc \
+    /usr/include/c++/4.8.2/bits/basic_ios.h \
+    /usr/include/c++/4.8.2/bits/locale_facets.h \
+    /usr/include/c++/4.8.2/cwctype \
     /usr/include/wctype.h \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/x86_64-redhat-linux/bits/ctype_base.h \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/streambuf_iterator.h \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/x86_64-redhat-linux/bits/ctype_inline.h \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/locale_facets.tcc \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/basic_ios.tcc \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/ostream.tcc \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/istream \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/istream.tcc \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stream_iterator.h \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/map \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_tree.h \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_map.h \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_multimap.h \
+    /usr/include/c++/4.8.2/x86_64-redhat-linux/bits/ctype_base.h \
+    /usr/include/c++/4.8.2/bits/streambuf_iterator.h \
+    /usr/include/c++/4.8.2/x86_64-redhat-linux/bits/ctype_inline.h \
+    /usr/include/c++/4.8.2/bits/locale_facets.tcc \
+    /usr/include/c++/4.8.2/bits/basic_ios.tcc \
+    /usr/include/c++/4.8.2/bits/ostream.tcc \
+    /usr/include/c++/4.8.2/istream \
+    /usr/include/c++/4.8.2/bits/istream.tcc \
+    /usr/include/c++/4.8.2/bits/stream_iterator.h \
+    /usr/include/c++/4.8.2/map \
+    /usr/include/c++/4.8.2/bits/stl_tree.h \
+    /usr/include/c++/4.8.2/bits/stl_map.h \
+    /usr/include/c++/4.8.2/bits/stl_multimap.h \
     /usr/include/ImageMagick/Magick++/CoderInfo.h \
     /usr/include/ImageMagick/Magick++/Montage.h \
+    /usr/include/assert.h \
     ../../include/gp/glextfuncs.h \
     ../../include/gp/pstring.h \
     /usr/include/string.h \
@@ -285,33 +290,35 @@ phys-obj-ball.o phys-obj-ball.d : phys-obj-ball.cc \
     ../../include/gp/gl-buffer.h \
     ../../include/gp/texture-util.h \
     ../../include/gp/cuda-util.h \
-    /usr/local/cuda/bin/../targets/x86_64-linux/include/cuda.h \
-    /usr/local/cuda/bin/../targets/x86_64-linux/include/cuda_runtime.h \
-    /usr/local/cuda/bin/../targets/x86_64-linux/include/host_config.h \
-    /usr/local/cuda/bin/../targets/x86_64-linux/include/builtin_types.h \
-    /usr/local/cuda/bin/../targets/x86_64-linux/include/device_types.h \
-    /usr/local/cuda/bin/../targets/x86_64-linux/include/host_defines.h \
-    /usr/local/cuda/bin/../targets/x86_64-linux/include/driver_types.h \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/include/limits.h \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/include/syslimits.h \
+    /usr/local/cuda/bin/..//include/cuda.h \
+    /usr/local/cuda/bin/..//include/cuda_runtime.h \
+    /usr/local/cuda/bin/..//include/host_config.h \
+    /usr/local/cuda/bin/..//include/builtin_types.h \
+    /usr/local/cuda/bin/..//include/device_types.h \
+    /usr/local/cuda/bin/..//include/host_defines.h \
+    /usr/local/cuda/bin/..//include/driver_types.h \
+    /usr/lib/gcc/x86_64-redhat-linux/4.8.3/include/limits.h \
+    /usr/lib/gcc/x86_64-redhat-linux/4.8.3/include/syslimits.h \
     /usr/include/limits.h \
     /usr/include/bits/posix1_lim.h \
     /usr/include/bits/local_lim.h \
     /usr/include/linux/limits.h \
     /usr/include/bits/posix2_lim.h \
     /usr/include/bits/xopen_lim.h \
-    /usr/local/cuda/bin/../targets/x86_64-linux/include/surface_types.h \
-    /usr/local/cuda/bin/../targets/x86_64-linux/include/texture_types.h \
-    /usr/local/cuda/bin/../targets/x86_64-linux/include/vector_types.h \
-    /usr/local/cuda/bin/../targets/x86_64-linux/include/channel_descriptor.h \
-    /usr/local/cuda/bin/../targets/x86_64-linux/include/cuda_runtime_api.h \
-    /usr/local/cuda/bin/../targets/x86_64-linux/include/cuda_device_runtime_api.h \
-    /usr/local/cuda/bin/../targets/x86_64-linux/include/driver_functions.h \
-    /usr/local/cuda/bin/../targets/x86_64-linux/include/vector_functions.h \
-    /usr/local/cuda/bin/../targets/x86_64-linux/include/cuda_gl_interop.h \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/memory \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_raw_storage_iter.h \
-    /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/backward/auto_ptr.h \
+    /usr/local/cuda/bin/..//include/surface_types.h \
+    /usr/local/cuda/bin/..//include/texture_types.h \
+    /usr/local/cuda/bin/..//include/vector_types.h \
+    /usr/local/cuda/bin/..//include/channel_descriptor.h \
+    /usr/local/cuda/bin/..//include/cuda_runtime_api.h \
+    /usr/local/cuda/bin/..//include/cuda_device_runtime_api.h \
+    /usr/local/cuda/bin/..//include/driver_functions.h \
+    /usr/local/cuda/bin/..//include/vector_functions.h \
+    /usr/local/cuda/bin/..//include/vector_functions.hpp \
+    /usr/local/cuda/bin/..//include/cuda_gl_interop.h \
+    /usr/include/c++/4.8.2/memory \
+    /usr/include/c++/4.8.2/bits/stl_uninitialized.h \
+    /usr/include/c++/4.8.2/bits/stl_raw_storage_iter.h \
+    /usr/include/c++/4.8.2/backward/auto_ptr.h \
     ../../include/gp/colors.h \
     k-main.cuh \
     phys.h \

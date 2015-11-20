@@ -60,7 +60,6 @@ __constant__ float4 *xx_sects_center;
 __constant__ float4 *xx_sects_dir;
 __constant__ float4 *xx_sects_debug;
 
-
 __constant__ float3 gravity_accel_dt;
 __constant__ float opt_bounce_loss, opt_bounce_loss_box;
 __constant__ float opt_friction_coeff, opt_friction_roll;
@@ -796,6 +795,19 @@ __device__ void
 box_apply_force_fric_dt
 (CUDA_Box_W& box, float3 tact, pNorm force_dir, float force_mag_dt)
 {
+  /*
+  // Static Friction Application Start
+  pVect force_fric;
+  float force_box = length(box.velocity) * (1/box.mass_inv);
+  float force_static = 20 * force_mag_dt; 
+  if (force_box < force_static)
+    //  box.velocity = 0 * box.velocity;
+    force_fric = (-1/box.mass_inv) * box.velocity;
+  else 
+    box_apply_force_dt(box,tact,force_mag_dt*force_dir);
+  // Application End
+  */
+
   box_apply_force_dt(box,tact,force_mag_dt*force_dir);
 }
 
@@ -1338,7 +1350,8 @@ pass_platform_ball(CUDA_Phys_W& phys, int idx)
   //
 
   ball.prev_velocity = xyz(balls_x.prev_velocity[idx]);
-  ball.velocity = xyz(balls_x.velocity[idx]) + gravity_accel_dt;
+  // Edit
+  ball.velocity = xyz(balls_x.velocity[idx]); // + gravity_accel_dt;
   set_f3(ball.position,balls_x.position[idx]);
   set_f3(ball.omega, balls_x.omega[idx]);
   float4 ball_props = balls_x.ball_props[idx];

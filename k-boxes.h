@@ -408,7 +408,8 @@ penetration_box_ball_resolve
   pVect sep_force = appr_force_dt * sep_normal;
 
   box_apply_force_dt(box, pos, -sep_force );
-  ball.velocity += ball.mass_inv * sep_force;
+  // Edit
+  // ball.velocity += ball.mass_inv * sep_force;//* sep_force;
 
   pVect vel1b = box_get_vel(box,pos);
   pVect vel2b =
@@ -431,7 +432,8 @@ penetration_box_ball_resolve
   const float fric_force_dt = min(fdt_limit,fric_force_dt_potential);
 
   box_apply_force_fric_dt(box, pos, tan_vel, fric_force_dt);
-  ball.velocity -= fric_force_dt * ball.mass_inv * tan_vel;
+  // Edit
+  //ball.velocity -= fric_force_dt * ball.mass_inv * tan_vel;
   ball.omega += tan_force_dt(sep_normal,tan_vel.v,fric_force_dt);
 
   /// Torque

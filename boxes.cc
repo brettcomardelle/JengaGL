@@ -1,42 +1,34 @@
 /// LSU EE 4702-1 (Fall 2015), GPU Programming
 //
- /// Project Base Code: Balls and Boxes on a Curved Platform
+ /// Project Jenga Puzzle
+ // Team:
+ // Jay Karasiuk
+ // Khoa Duong
+ // Eric Zhou
+ // Brett Comardelle
 
 // $Id:$ 
 
 /// Purpose
 //
-//   Main file for simulation of balls and boxes.
+//   Simulate a Jenga Puzzle
 
+/// Added User Commands
+// 'b': Move user ball. (Just position)
+// 'B': Push user ball. (Constant velocity; changes ball direction)
 
-/// What Code Does
+// Documentation:
+// User ball and Jenga tower blocks are initialized.
+// Use 'b' and 'B' to move the user ball and try to move the blocks, respectively.
+// Use 's' to STOP the ball.
+// Search for 'Edit' for added/modified code.
 
-//  Simulates balls and boxes bouncing on a half-cylinder platform.
-//    Scenes with a brick wall, tower, and staircase can be set up.
-
-//  Features
-
-//    Ball and box friction and angular momentum modeled.
-
-//    Physics computed by CPU or by GPU/CUDA (user selectable).
-//      Demonstrates use of CUDA for GPU physics, also use of
-//      CPU multi-threading (currently only in conjunction with CUDA).
-
-//    Objects cast shadows on platform:
-//      Demonstrates use of stencils and shadow volumes.
-
-//    Object reflections visible on mirrored tiles.
-//      Demonstrates stencils, blending, vertex, and geometry shaders.
-//      Vertex shader computes reflection locations (> 1 per vertex).
-//      Geometry shader emits triangles for all reflection points.
-//      Later, tile image is blended over reflected image of balls.
-
-//    Occlusion queries used to limit number of balls rendered.
-
-//    Two-color specular lighting used for balls.
-
-
-
+// Modified Sections:
+// boxes.cc
+// world.h
+// k-main.cu
+// k-boxes.h
+// scene-setup.cc
 
 ///  Keyboard Commands
  //
@@ -45,9 +37,7 @@
  //   Will move object or push ball, depending on mode:
  //   'e': Move eye.
  //   'l': Move light.
- //   'b': Move object. (Change position but not velocity.)
  //   'D': Move object drip location.
- //   'B': Push object. (Add velocity.)
  //
  /// Eye Direction
  //   Home, End, Delete, Insert
@@ -329,7 +319,10 @@ World::init()
 
   // Initialize scene to show a brick wall.
   //
-  setup_brick_wall(); return;
+  
+  // Edit
+  setup_tower(2,10); return;
+
 
   /// The configurations below are for debugging.
   //
@@ -564,6 +557,10 @@ void World::all_remove()
       Phys* const phys = physs.pop();
       delete phys;
     }
+
+  // Edit
+  //  delete ball_user;
+
   tile_manager->rebuild();
   platform_object_setup();
 }
@@ -738,7 +735,10 @@ World::time_step_cpu()
 
   /// Apply gravitational force.
   //
+
+  // Edit
   for ( Phys *p; phys_live_iterate(p); ) p->velocity += gravity_accel_dt;
+  // ball_user->velocity -= gravity_accel_dt;
 
   /// Sort balls in z in preparation for finding balls that touch.
   //
@@ -1072,8 +1072,8 @@ World::time_step_cpu()
       // Update phys orientation if it is spinning fast enough.
       //
       if ( axis.mag_sq > 0.000001 )
-        phys->orientation =
-          pQuat(axis,delta_t * axis.magnitude) * phys->orientation;
+        phys->orientation = 
+	  pQuat(axis,delta_t * axis.magnitude) * phys->orientation;
 
       phys->geometry_update();
 
@@ -1360,8 +1360,10 @@ World::cb_keyboard()
       opt_friction_coeff = 0.0001;
       break;
     }
+    // Edit
   case '0': setup_debug(); break;
-  case '1': setup_brick_wall(-5); break;
+  case '1': setup_tower(2,10); break;
+    //case '1': setup_brick_wall(-5); break;
   case '!': setup_brick_wall(20); break;
   case '2': setup_tower(2,10); break;
   case '3': setup_tower(20,10); break;
@@ -1378,6 +1380,7 @@ World::cb_keyboard()
     break;
   case 'b': opt_move_item = MI_Ball; break;
   case 'B': opt_move_item = MI_Ball_V; break;
+    // case 'r': ball_user->position = user_pos_init; break;
   case 'c': case 'C': opt_color_events = !opt_color_events; break;
   case 'd': opt_drip = !opt_drip; if(!opt_drip)dball=NULL; break;
   case 'D': opt_move_item = MI_Drip; break;
@@ -1463,12 +1466,15 @@ World::cb_keyboard()
       default: break;
       }
 
+      // Edit
       switch ( opt_move_item ){
-      case MI_Ball: phys_last()->translate(adjustment); break;
-      case MI_Ball_V: phys_last()->push(adjustment); break;
+      case MI_Ball: ball_user->translate(0.1*adjustment); break;
+      case MI_Ball_V: ball_user->velocity = 10*adjustment; break;
+	//      case MI_Ball_V: ball_user->push(10*adjustment); break;
       case MI_Light: light_location += adjustment; break;
       case MI_Eye: eye_location += adjustment; break;
       case MI_Drip: drip_location += adjustment; break;
+	//     case MI_Ball_User: ball_user->translate(adjustment); break;
       default: break;
       }
       modelview_update();

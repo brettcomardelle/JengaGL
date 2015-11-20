@@ -153,6 +153,7 @@ World::setup_brick_wall(float max_y)
     }
 }
 
+// Edit
 void
 World::setup_tower(float base, int layers)
 {
@@ -166,9 +167,27 @@ World::setup_tower(float base, int layers)
   float block_width = base;
   pCoor block_base (0, platform_y, drip_location.z);
   pVect block_diag (block_width,block_width*0.9,block_width*3);
-  float block_space = block_width * 1.4; // spacing of blocks in tower - by a constant
+  float block_space = block_width * 1.1; // spacing of blocks in tower - by a constant
 
-  for ( int i=0; i<11; i++ )
+
+  // Create user ball.
+  Ball* const b = new Ball(this);
+  pCoor offset (3,15,7);
+  b->set_radius(0.25);
+  b->position = block_base + offset;
+  user_pos_init = block_base + offset;
+  b->velocity = pVect(0,0,0);
+  b->color = color_blue;
+  ball_user = b;
+  physs += b;
+  variables_update();
+
+
+
+
+
+  // Create Jenga puzzle
+  for ( int i=0; i<layers; i++ )
     {
 
       pCoor block_base_per_layer = block_base;
