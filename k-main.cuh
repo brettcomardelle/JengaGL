@@ -35,6 +35,8 @@ struct CUDA_Ball {
   int4 tact_counts;
   float4 ball_props;
   float4 to_111;
+  // Edit
+  //float3 color;
 };
 
 struct CUDA_Ball_X { // X is for transpose.
@@ -46,6 +48,8 @@ struct CUDA_Ball_X { // X is for transpose.
   int4 *tact_counts;
   float4 *ball_props;
   float4 *to_111;
+  // Edit
+  //float3 *color;
 };
 
 struct CUDA_SectTT {
@@ -67,6 +71,8 @@ struct CUDA_Box_W { // W is for work.
   float3 to_111;
   pcMatrix3x3 rot_inv;
   float3 mi_vec;
+  // Edit
+  //float3 color;
 };
 
 struct CUDA_Ball_W { // W is for work.
@@ -76,6 +82,8 @@ struct CUDA_Ball_W { // W is for work.
   float3 prev_velocity;
   float mass_inv, radius;
   float pad1, pad2;
+  // Edit
+  //float3 color;
 };
 
 struct CUDA_Tile_W {

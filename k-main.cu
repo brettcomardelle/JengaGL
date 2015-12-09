@@ -49,6 +49,11 @@ extern __shared__ float3 sm_balls[];
 __shared__ uchar4 sm_balls_misc[300];
 #endif
 
+// Edit
+
+__constant__ bool opt_sticky;
+
+
  /// Pairs of Balls to Check
 //
 __constant__ SM_Idx2 *tacts_schedule;
@@ -799,9 +804,8 @@ box_apply_force_fric_dt
   // Static Friction Application Start
   pVect force_fric;
   float force_box = length(box.velocity) * (1/box.mass_inv);
-  float force_static = 20 * force_mag_dt; 
+  float force_static = 50 * force_mag_dt; 
   if (force_box < force_static)
-    //  box.velocity = 0 * box.velocity;
     force_fric = (-1/box.mass_inv) * box.velocity;
   else 
     box_apply_force_dt(box,tact,force_mag_dt*force_dir);
@@ -1151,11 +1155,22 @@ pass_pairs(int prefetch_offset, int schedule_offset, int round_cnt,
           rv = penetration_boxes_resolve(physx,physy,tsidx,ft);
         }
       else if ( ptx == PT_Ball && pty == PT_Box )
+	// For Ball and Box Collisions
+	// Objective: Have ball stick to box and share offset positions
+	// Also if user desires, release the box
+	// Proposing Sticky Mode: keypress ' ' ?
         {
 #ifndef USE_STRUCT
           upgrade_sm_box(physy,smo,iy);
 #endif
-          rv = penetration_box_ball_resolve(physy,physx,ft);
+	  // Edit
+	  // if sticky mode
+	  // update box position with ball position plus additional offset
+	  if (opt_sticky)
+	    rv = sticky_box_ball_resolve(physy,physx,ft);
+	  else
+	  // else keep earlier collisions
+	    rv = penetration_box_ball_resolve(physy,physx,ft);
         }
       else if ( pty == PT_Ball )
         {
@@ -1914,5 +1929,9 @@ static __host__ void collect_symbols()
   CU_SYM(z_sort_z_max);
   CU_SYM(cuda_prox);
   CU_SYM(pass_sched_debug);
+
+  //Edit
+  CU_SYM(opt_sticky);
+
 }
 

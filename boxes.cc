@@ -16,11 +16,14 @@
 /// Added User Commands
 // 'b': Move user ball. (Just position)
 // 'B': Push user ball. (Constant velocity; changes ball direction)
+// 'f': Activate ball's sticky mode. (Used to stick onto boxes)
+// 'r': Reset user ball to original location.
 
 // Documentation:
 // User ball and Jenga tower blocks are initialized.
 // Use 'b' and 'B' to move the user ball and try to move the blocks, respectively.
 // Use 's' to STOP the ball.
+// Use 'r' to reset ball location.
 // Search for 'Edit' for added/modified code.
 
 // Modified Sections:
@@ -162,7 +165,7 @@ World::init()
   data_location = DL_ALL_CPU;
   cuda_initialized = false;
   cuda_schedule_stale = 1;
-  opt_physics_method = GP_cuda;
+  opt_physics_method = GP_cpu;
   opt_block_size = 128;
   prox_test_per_ball_prev = 0;
 
@@ -184,6 +187,9 @@ World::init()
   opt_debug2 = false;
   opt_block_color_pass = 0;
   opt_extra_cuda_info = false;  // Display CUDA tuning info.
+
+  // Edit
+  opt_sticky = false;
 
   mirror_tint = color_lsu_spirit_purple * 0.5;
 
@@ -735,10 +741,10 @@ World::time_step_cpu()
 
   /// Apply gravitational force.
   //
+  for ( Phys *p; phys_live_iterate(p); ) p->velocity += gravity_accel_dt;
 
   // Edit
-  for ( Phys *p; phys_live_iterate(p); ) p->velocity += gravity_accel_dt;
-  // ball_user->velocity -= gravity_accel_dt;
+  ball_user->velocity -= gravity_accel_dt;
 
   /// Sort balls in z in preparation for finding balls that touch.
   //
@@ -789,7 +795,14 @@ World::time_step_cpu()
             {
               Box* const box = ball8 ? BOX(prop9) : BOX(prop8);
               Ball* const ball = ball8 ? ball8 : ball9;
-              penetration_box_ball_resolve(box,ball);
+              //Edit
+
+	      if (opt_sticky) {
+		sticky_box_ball_resolve(box,ball);
+	      }
+	      
+	      else
+		penetration_box_ball_resolve(box,ball);
               continue;
             }
 
@@ -1336,7 +1349,7 @@ void
 World::cb_keyboard()
 {
   if ( !ogl_helper.keyboard_key ) return;
-  pVect adjustment(0,0,0);
+  adjustment = pVect(0,0,0);
   pVect user_rot_axis(0,0,0);
   const bool shift = ogl_helper.keyboard_shift;
   const float move_amt = shift ? 2.0 : 0.4;
@@ -1385,6 +1398,10 @@ World::cb_keyboard()
   case 'd': opt_drip = !opt_drip; if(!opt_drip)dball=NULL; break;
   case 'D': opt_move_item = MI_Drip; break;
   case 'e': case 'E': opt_move_item = MI_Eye; break;
+
+    // Edit
+  case 'f': opt_sticky = !opt_sticky; break;
+
   case 'g': case 'G': opt_gravity = !opt_gravity; break;
   case 'i': opt_info = true; break;
   case 'I': opt_extra_cuda_info = !opt_extra_cuda_info; break;
@@ -1399,6 +1416,7 @@ World::cb_keyboard()
   case 'p': case 'P': opt_pause = !opt_pause; break;
   case 'q': opt_debug = !opt_debug; break;
   case 'Q': opt_debug2 = !opt_debug2; break;
+  case 'r': ball_user->position = user_pos_init; 
   case 'R': balls_remove(); break;
   case 's': phys_stop(); break;
   case 'S': phys_rot_stop(); break;
@@ -1469,12 +1487,10 @@ World::cb_keyboard()
       // Edit
       switch ( opt_move_item ){
       case MI_Ball: ball_user->translate(0.1*adjustment); break;
-      case MI_Ball_V: ball_user->velocity = 10*adjustment; break;
-	//      case MI_Ball_V: ball_user->push(10*adjustment); break;
+      case MI_Ball_V: ball_user->velocity = 5*adjustment; break;
       case MI_Light: light_location += adjustment; break;
       case MI_Eye: eye_location += adjustment; break;
       case MI_Drip: drip_location += adjustment; break;
-	//     case MI_Ball_User: ball_user->translate(adjustment); break;
       default: break;
       }
       modelview_update();

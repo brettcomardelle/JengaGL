@@ -86,6 +86,8 @@ World::cuda_init()
   CMX_SETUP(cuda_balls,tact_counts);
   CMX_SETUP(cuda_balls,ball_props);
   CMX_SETUP(cuda_balls,to_111);
+  // Edit
+  //CMX_SETUP(cuda_balls,color);
 
   // Determine resources used by each CUDA kernel.
   // Also collect addresses of global and constant symbols.
@@ -193,6 +195,9 @@ World::cuda_constants_update()
   TO_DEVF(opt_air_resistance);
   TO_DEV(opt_debug);
   TO_DEV(opt_debug2);
+
+  // Edit
+  TO_DEV(opt_sticky);
 }
 
 
@@ -259,12 +264,12 @@ World::cpu_data_to_cuda()
       vec_sets3(cuda_balls.soa.prev_velocity[idx],phys->velocity);
       vec_sets3(cuda_balls.soa.velocity[idx],phys->velocity);
       vec_sets3(cuda_balls.soa.omega[idx],phys->omega);
-
       {
         float4 phys_props;
         phys_props.x = phys->radius;
         phys_props.y = phys->mass_inv;
         cuda_balls.soa.ball_props[idx] = phys_props;
+
       }
 
       if ( Ball* const ball = BALL(phys) )

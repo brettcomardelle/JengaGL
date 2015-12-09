@@ -406,10 +406,12 @@ penetration_box_ball_resolve
     ? force_dt_no_loss * loss_factor : force_dt_no_loss;
 
   pVect sep_force = appr_force_dt * sep_normal;
-
-  box_apply_force_dt(box, pos, -sep_force );
+ 
   // Edit
-  // ball.velocity += ball.mass_inv * sep_force;//* sep_force;
+  box_apply_force_dt(box, pos, -sep_force );
+ 
+  // Edit
+  //ball.velocity += ball.mass_inv * sep_force;
 
   pVect vel1b = box_get_vel(box,pos);
   pVect vel2b =
@@ -431,10 +433,109 @@ penetration_box_ball_resolve
 
   const float fric_force_dt = min(fdt_limit,fric_force_dt_potential);
 
+  // Edit
   box_apply_force_fric_dt(box, pos, tan_vel, fric_force_dt);
+  
   // Edit
   //ball.velocity -= fric_force_dt * ball.mass_inv * tan_vel;
-  ball.omega += tan_force_dt(sep_normal,tan_vel.v,fric_force_dt);
+  //ball.omega += tan_force_dt(sep_normal,tan_vel.v,fric_force_dt);
+
+  /// Torque
+  //
+  //
+  // Account for forces of surfaces twisting against each
+  // other. (For example, if one box is spinning on top of
+  // another.)
+  //
+  const float appr_omega =
+    dot(box.omega,sep_normal) - dot(ball.omega,sep_normal);
+  if ( fabs(appr_omega) > 0.00001f )
+    {
+      const float mi1_inv = box_get_moment_of_inertia_inv(box,sep_normal);
+      const float mi2_inv = get_fdt_to_do(ball.radius,ball.mass_inv);
+      const float fdt_limit = fabs(appr_omega) / ( mi1_inv + mi2_inv );
+      const bool rev = appr_omega < 0;
+      const float fdt_raw = min(fdt_limit,fric_force_dt);
+      const pVect fdt_v = ( rev ? fdt_raw : -fdt_raw ) * sep_normal;
+      if ( !boxp.read_only ) box.omega += mi1_inv * fdt_v;
+      if ( !ballp.read_only ) ball.omega -= mi2_inv * fdt_v;
+    }
+
+  return true;
+}
+
+
+// Edit
+__device__ bool
+sticky_box_ball_resolve
+(CUDA_Phys_W& boxp, CUDA_Phys_W& ballp, bool friction)
+{
+  CUDA_Box_W& box = boxp.box;
+  CUDA_Ball_W& ball = ballp.ball;
+
+  CUDA_SectTT sect = box_sphere_interpenetrate(box,ball.position,ball.radius);
+  if ( !sect.exists ) return false;
+
+  pVect sep_vect = box.position - ball.position;
+
+  pVect color_blue = mv(0,0,1);
+
+  //box.color = color_blue;
+  //ball.color = mv(1,1,1);
+  box.velocity = ball.velocity;//ball.position + sep_vect;
+  return true;
+
+  pNorm sep_normal = mn(sect.dir,sect.pen_dist);
+  pCoor pos = sect.start;
+
+  const float pen_dist = 0.1f * sect.pen_dist;
+
+  pVect vel1 = box_get_vel(box,pos);
+  pVect vel2 = ball.prev_velocity;
+  pVect velto1 = vel2 - vel1;
+
+  const float sep_vel = dot(velto1,sep_normal);
+
+  const double loss_factor = 1 - opt_bounce_loss_box;
+  const float force_dt_no_loss = elasticity_inv_dt * pen_dist;
+  const bool separating = sep_vel >= 0;
+  const float appr_force_dt = separating
+    ? force_dt_no_loss * loss_factor : force_dt_no_loss;
+
+  pVect sep_force = appr_force_dt * sep_normal;
+ 
+  // Edit
+  //box_apply_force_dt(box, pos, -sep_force );
+ 
+  // Edit
+  //ball.velocity += ball.mass_inv * sep_force;
+
+  pVect vel1b = box_get_vel(box,pos);
+  pVect vel2b =
+    point_rot_vel(ball.omega,ball.radius,-sep_normal) + ball.velocity;
+
+  pVect velto1b = vel2b - vel1b;
+
+  const float sep_velb = dot(velto1b,sep_normal);
+  pNorm tan_vel = mn(velto1b - sep_velb * sep_normal);
+  const float fric_force_dt_potential = force_dt_no_loss * opt_friction_coeff;
+  const float ball_mi_inv =
+    2.5f * ball.mass_inv / ( ball.radius * ball.radius );
+  const float fdt_limit =
+    tan_vel.magnitude /
+    (
+     ( boxp.read_only ? 0
+       : box.mass_inv + box_get_moment_of_inertia_inv(box,pos,tan_vel) )
+     + ( ballp.read_only ? 0 : ball.mass_inv + ball_mi_inv ));
+
+  const float fric_force_dt = min(fdt_limit,fric_force_dt_potential);
+
+  // Edit
+  //box_apply_force_fric_dt(box, pos, tan_vel, fric_force_dt);
+  
+  // Edit
+  //ball.velocity -= fric_force_dt * ball.mass_inv * tan_vel;
+  //ball.omega += tan_force_dt(sep_normal,tan_vel.v,fric_force_dt);
 
   /// Torque
   //

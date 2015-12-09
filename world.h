@@ -65,6 +65,9 @@ public:
   // Edit
   Ball* ball_user;
   pCoor user_pos_init;
+  bool opt_sticky;
+  pVect adjustment;
+  bool box_ball_link;
 
   // Options controlling ball shower.
   //
@@ -101,6 +104,9 @@ public:
   bool penetration_boxes_resolve_force(Tact_Box_Box *cpair);
   bool penetration_boxes_resolve_fric(Tact_Box_Box *cpair);
   bool penetration_box_ball_resolve(Box *box, Ball *ball);
+
+  // Edit
+  bool sticky_box_ball_resolve(Box *box, Ball *ball);
 
   void balls_render(bool attempt_ot);
   void render_objects_simple();

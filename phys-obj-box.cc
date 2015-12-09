@@ -780,6 +780,14 @@ box_sphere_interpenetrate(Box *box, pCoor sphere_pos, float radius)
   pVect btosla = fabs(btosl);
   pVect dist = btosla - box->to_111;
   const float max_dist = max(dist);
+ 
+  //Edit
+  float dist_diff = max_dist - radius;
+  if (dist_diff < 0.05)
+    box->color = color_blue;
+  else
+    box->color = color_khaki;
+
   if ( max_dist >= radius ) return sect;
   pVect tact(dist.x > 0 ? copysignf(box->to_111.x,btosl.x) : btosl.x,
              dist.y > 0 ? copysignf(box->to_111.y,btosl.y) : btosl.y,

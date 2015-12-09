@@ -201,7 +201,7 @@ World::setup_tower(float base, int layers)
 
 	    // make a green block
 	    Box* const b = box_manager->new_box
-	      (block_base_per_layer,block_diag,color_green);
+	      (block_base_per_layer,block_diag,color_khaki);
 
 	    // shift spawning position of next block
 	    block_base_per_layer.z += block_space;
@@ -216,7 +216,7 @@ World::setup_tower(float base, int layers)
 	    
 	    // make a red box
 	    Box* const b = box_manager->new_box
-	      (block_base_per_layer,block_diag,color_red);
+	      (block_base_per_layer,block_diag,color_khaki);
 
 	    // shift spawning posisiotn of next block - x dirrection
 	    block_base_per_layer.x += block_space;
