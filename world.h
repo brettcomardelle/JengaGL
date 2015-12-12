@@ -64,10 +64,10 @@ public:
 
   // Edit
   Ball* ball_user;
+  Box* box_sticky = NULL;
   pCoor user_pos_init;
   bool opt_sticky;
   pVect adjustment;
-  bool box_ball_link;
 
   // Options controlling ball shower.
   //

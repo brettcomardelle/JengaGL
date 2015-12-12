@@ -770,7 +770,7 @@ box_box_interpenetrate(Box *box1, Box *box2, PStack<SectTT>* sl)
 }
 
 SectTT
-box_sphere_interpenetrate(Box *box, pCoor sphere_pos, float radius)
+box_sphere_interpenetrate(Box *box, pCoor sphere_pos, float radius, bool opt_sticky)
 {
   SectTT sect;
   pVect btos(box->position,sphere_pos);
@@ -783,8 +783,12 @@ box_sphere_interpenetrate(Box *box, pCoor sphere_pos, float radius)
  
   //Edit
   float dist_diff = max_dist - radius;
-  if (dist_diff < 0.05)
-    box->color = color_blue;
+  if (dist_diff < 0.05) {
+    if (opt_sticky)
+      box->color = color_cyan;
+    else
+      box->color = color_blue;
+  }
   else
     box->color = color_khaki;
 

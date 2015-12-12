@@ -16,22 +16,29 @@
 /// Added User Commands
 // 'b': Move user ball. (Just position)
 // 'B': Push user ball. (Constant velocity; changes ball direction)
-// 'f': Activate ball's sticky mode. (Used to stick onto boxes)
+// 'f': Activate ball's sticky mode. (Used to stick onto boxes - 
+//  Either using ball position or velocity)
+//  Sticky mode ON: ball color = cyan
+//  Sticky mode OFF: ball color = blue
 // 'r': Reset user ball to original location.
 
 // Documentation:
+// Current implementation ONLY works on CPU.
 // User ball and Jenga tower blocks are initialized.
-// Use 'b' and 'B' to move the user ball and try to move the blocks, respectively.
+// Use 'b' and 'B' to move the user ball and try to move the blocks.
+
+// Sticky mode differs according to if 'b' or 'B' is selected.
+   // For 'b': ball and box share the same position; toggling off sticky mode 
+   // resets ball position (Same functionality as RESET - 'r'.
+   // For 'B': After collision, ball and block shares the same velocity.
+
 // Use 's' to STOP the ball.
 // Use 'r' to reset ball location.
+// Use SHIFT to increase translate/velocity.
 // Search for 'Edit' for added/modified code.
 
-// Modified Sections:
-// boxes.cc
-// world.h
-// k-main.cu
-// k-boxes.h
-// scene-setup.cc
+// Block Color changes whether the block and ball are sufficiently close
+// AND if sticky mode is activated.
 
 ///  Keyboard Commands
  //
@@ -1376,12 +1383,6 @@ World::cb_keyboard()
     // Edit
   case '0': setup_debug(); break;
   case '1': setup_tower(2,10); break;
-    //case '1': setup_brick_wall(-5); break;
-  case '!': setup_brick_wall(20); break;
-  case '2': setup_tower(2,10); break;
-  case '3': setup_tower(20,10); break;
-  case '4': setup_staircase(); break;
-  case '5': setup_house_of_cards(); break;
   case '|': opt_platform_curved = !opt_platform_curved;
     platform_update();
     platform_object_setup();
@@ -1393,15 +1394,24 @@ World::cb_keyboard()
     break;
   case 'b': opt_move_item = MI_Ball; break;
   case 'B': opt_move_item = MI_Ball_V; break;
-    // case 'r': ball_user->position = user_pos_init; break;
   case 'c': case 'C': opt_color_events = !opt_color_events; break;
   case 'd': opt_drip = !opt_drip; if(!opt_drip)dball=NULL; break;
   case 'D': opt_move_item = MI_Drip; break;
   case 'e': case 'E': opt_move_item = MI_Eye; break;
 
     // Edit
-  case 'f': opt_sticky = !opt_sticky; break;
-
+  case 'f': 
+    if (!opt_sticky)
+      ball_user->color = color_cyan;
+    else 
+      ball_user->color = color_blue;
+    opt_sticky = !opt_sticky;
+    if (box_sticky != NULL) {
+      box_sticky->color = color_khaki;
+      ball_user->position = user_pos_init; 
+    }
+    box_sticky = NULL;
+    break;
   case 'g': case 'G': opt_gravity = !opt_gravity; break;
   case 'i': opt_info = true; break;
   case 'I': opt_extra_cuda_info = !opt_extra_cuda_info; break;
@@ -1486,7 +1496,12 @@ World::cb_keyboard()
 
       // Edit
       switch ( opt_move_item ){
-      case MI_Ball: ball_user->translate(0.1*adjustment); break;
+      case MI_Ball:
+	if (opt_sticky && box_sticky != NULL)
+	 box_sticky->position += 0.1*adjustment;
+	else
+	  ball_user->translate(0.1*adjustment);
+	break;
       case MI_Ball_V: ball_user->velocity = 5*adjustment; break;
       case MI_Light: light_location += adjustment; break;
       case MI_Eye: eye_location += adjustment; break;

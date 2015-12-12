@@ -127,7 +127,7 @@ SectTT
 box_box_interpenetrate(Box *box1, Box *box2, PStack<SectTT>* sl);
 
 SectTT
-box_sphere_interpenetrate(Box *box, pCoor sphere_pos, float radius);
+box_sphere_interpenetrate(Box *box, pCoor sphere_pos, float radius, bool opt_sticky);
 
 
 #endif
